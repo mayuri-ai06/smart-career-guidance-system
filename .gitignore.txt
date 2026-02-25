@@ -1,7 +1,0 @@
-.env
-student_data.csv
-pycache/
-*.pyc
-venv/
-.DS_Store
-Thumbs.db
