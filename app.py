@@ -6,26 +6,25 @@ import streamlit as st
 import pickle
 import matplotlib.pyplot as plt
 
-# ---------- Load API Key ----------
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
 
 client = genai.Client(api_key=api_key)
 
-# ---------- Load ML Model ----------
+
 model = pickle.load(open("career_model.pkl", "rb"))
 
-# ---------- UI ----------
+
 st.title("🎓 Smart Career Guidance System")
 st.write("Fill your interest levels and get career suggestion")
-# 👇 YAHAN PE PASTE KAREIN (st.title ke niche)
+
+
 if st.sidebar.button("🗑️ Reset All Data"):
     df_reset = pd.DataFrame(columns=["Name","Maths","Biology","Commerce","Creativity","Career"])
     df_reset.to_csv("student_data.csv", index=False)
     st.sidebar.success("Sari history delete ho gayi!")
-# 👆 YAHAN TAK
 
-st.write("Fill your interest levels and get career suggestion")
+
 
 name = st.text_input("Enter your Name")
 
@@ -46,7 +45,7 @@ if st.button("Predict Career"):
         prediction = "Graphic Designer"
     elif biology > 80 and maths < 50:
         prediction = "Doctor"
-    # --------------------------------------------
+
 
     # ---- Save Student Record ----
     record = pd.DataFrame(
@@ -64,11 +63,10 @@ if st.button("Predict Career"):
         "Graphic Designer": "Creates logos, posters and social media designs."
     }
 
-    # .get() use karne se agar career list mein nahi bhi hua toh error nahi aayega
     description = career_info.get(prediction, "Exciting career path with great future opportunities!")
     
     st.info(f"**What is {prediction}?** \n\n {description}")
-    # --- 📊 CHART SECTION (YAHAN ADD KIYA HAI) ---
+
     st.subheader("📊 Your Skill Analysis")
     labels = ["Maths", "Biology", "Commerce", "Creativity"]
     values = [maths, biology, commerce, creativity]
@@ -79,14 +77,13 @@ if st.button("Predict Career"):
     ax.set_ylim(0, 100)
     ax.set_ylabel('Interest %')
     
-    # Bar ke upar numbers likhne ke liye
+  
     for bar in bars:
         yval = bar.get_height()
         ax.text(bar.get_x() + bar.get_width()/2, yval + 1, yval, ha='center', va='bottom')
     
     st.pyplot(fig) 
-    # --------------------------------------------
-    # ---------- 5️⃣ RESUME RECOMMENDATION SECTION (Yahan add karein) ----------
+    
     st.write("---")
     st.subheader("📝 Suggested Skills for your Resume")
 
@@ -97,20 +94,17 @@ if st.button("Predict Career"):
         "Graphic Designer": ["Canva", "Adobe Photoshop", "UI/UX Design", "Creativity", "Typography"]
     }
 
-    # Prediction ke basis par list fetch karna
     recommended_skills = skills_db.get(prediction, ["Communication", "Problem Solving", "Time Management"])
 
-    # Skills ko Bullet points mein dikhane ke liye
     for s in recommended_skills:
         st.write(f"✅ {s}")
     
-    # -----------------------------------------------------------------------
 
     
     st.write("---")
     st.write("⏳ Generating your 3-month roadmap...")
 
-    # ---------- Gemini Prompt ----------
+   
     prompt = f"""
     Student Name: {name}
 
@@ -124,7 +118,7 @@ if st.button("Predict Career"):
     Keep explanation very simple and beginner friendly.
     """
 
-    # ---------- Gemini AI ----------
+   
     response = client.models.generate_content(
         model="gemini-flash-latest",
         contents=prompt
@@ -132,12 +126,8 @@ if st.button("Predict Career"):
 
     st.write(response.text)
     
-    # ========================================================
-    # 6️⃣ DOWNLOAD SECTION (Yahan add karein)
-    # ========================================================
     st.write("---")
-    
-    # Poore report ka text tayyar karna
+  
     report_text = f"""
     SMART CAREER GUIDANCE REPORT
     Name: {name}
@@ -156,4 +146,5 @@ if st.button("Predict Career"):
         data=report_text,
         file_name=f"{name}_Career_Report.txt",
         mime="text/plain"
+
     )
