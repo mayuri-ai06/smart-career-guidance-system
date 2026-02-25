@@ -48,25 +48,21 @@ This project helps students who are confused about their future career by analyz
 7. User downloads personalized career report
 
 ---#3 Flowchart:
-![Flowchart](assets/home.png)
+![Flowchart](https://github.com/mayuri-ai06/smart-career-guidance-system/blob/main/assets/Flowchart.jpg?raw=true)
 
 ## 📊 Screenshots
 
 ### Home Interface
 
-![Home](assets/home.png)
-
-### Career Prediction
-
-![Prediction](assets/prediction.png)
+![Home](https://github.com/mayuri-ai06/smart-career-guidance-system/blob/main/assets/Career%20guide%20output.png?raw=true)
 
 ### Skill Analysis Chart
 
-![Chart](assets/chart.png)
+![Chart](https://github.com/mayuri-ai06/smart-career-guidance-system/blob/main/assets/Chart%20output.png?raw=true)
 
 ### AI Generated Roadmap
 
-![Roadmap](assets/roadmap.png)
+![Roadmap](https://github.com/mayuri-ai06/smart-career-guidance-system/blob/main/assets/Download%20option%20output.png?raw=true)
 
 ---
 
